@@ -15,9 +15,16 @@ class KeyChanger
     sig = key_finder.find_by_nm(to).sig
     result = []
     chords.each do |chord|
-      result << find_transposed(chord, step, sig)
+      root, rest = slice_root(chord)
+      result << find_transposed(root, step, sig) + rest
     end
     result
+  end
+
+  def slice_root(chord)
+    return [chord, ""] if chord.size == 1
+    return [chord[0..1], chord[1..]] if chord[1] == "#" or chord[1] == "b"
+    [chord[0], chord[1..]]
   end
 
   def comp_steps(from, to)
