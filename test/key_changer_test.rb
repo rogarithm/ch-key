@@ -12,7 +12,7 @@ class KeyChangerTest < Minitest::Test
     end
   end
 
-  def test_transpose_with_no_sig
+  def test_transpose_chords_with_only_root
     [
       ["C F G", "C", "D", %w[D G A]],
     ].each do |data|
@@ -22,9 +22,7 @@ class KeyChangerTest < Minitest::Test
         KeyChanger.new.transpose(orig_chords, orig_key, target_key)
       )
     end
-  end
 
-  def test_transpose_with_flat_sig
     [
       ["C F G", "C", "Bb", %w[Bb Eb F]],
     ].each do |data|
@@ -34,9 +32,7 @@ class KeyChangerTest < Minitest::Test
         KeyChanger.new.transpose(orig_chords, orig_key, target_key)
       )
     end
-  end
 
-  def test_transpose_with_sharp_sig
     [
       ["C D E", "C", "E", %w[E F# G#]],
     ].each do |data|
