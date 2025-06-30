@@ -14,16 +14,16 @@ class KeyChanger
     sig = key_finder.find_by_nm(to).sig
 
     result = []
-    input.split.each do |s|
+    parsed = input.scan(/([A-G][#b]?[^\s]*)(\s*)/)
+    parsed.each do |s, space|
       root, rest, bass  = Chord.parse(s)
-      result <<
-        Chord.new(
+      result << Chord.new(
           find_transposed(root, step, sig),
           rest,
           find_transposed(bass, step, sig)
-        ).to_s
+        ).to_s + space
     end
-    result
+    result.join
   end
 
   def comp_steps(from, to)
