@@ -5,11 +5,13 @@ class KeyFinderTest < Minitest::Test
 
   def test_find_key_by_its_name
     kf = KeyFinder.new
-    key_nms = %w[C,B#,C#,Db,
-                 D,D#,Eb,E,
-                 Fb,E#,F,F#,
-                 Gb,G,G#,Ab,
-                 A,A#,Bb,B,Cb]
+    key_nms = [
+      "C", "B#", "C#", "Db",
+      "D", "D#", "Eb", "E",
+      "Fb", "E#", "F", "F#",
+      "Gb", "G", "G#", "Ab",
+      "A", "A#", "Bb", "B", "Cb"
+    ]
 
     key_nms.each do |key_nm|
       key = kf.find_by_nm(key_nm)
