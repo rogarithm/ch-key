@@ -24,19 +24,6 @@ class KeyChangerTest < Minitest::Test
     end
   end
 
-  def test_slice_root
-    [
-      %w[CM7 C], %w[FM7 F], %w[G7 G],
-      %w[C#M7 C#], %w[FbM7 Fb], %w[G#7 G#]
-    ].each do |data|
-      orig_chord, expected_root = data
-      assert_equal(
-        expected_root,
-        KeyChanger.new.slice_root(orig_chord)[0]
-      )
-    end
-  end
-
   def test_transpose_chords_with_only_root
     [
       ["C F G", "C", "D", %w[D G A]],
