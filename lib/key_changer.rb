@@ -11,12 +11,11 @@ class KeyChanger
 
   def transpose(input, from, to)
     step = comp_steps(from, to)
-    chords = input.split
-
     sig = key_finder.find_by_nm(to).sig
+
     result = []
-    chords.each do |s_chord|
-      root, rest, bass  = Chord.parse(s_chord)
+    input.split.each do |s|
+      root, rest, bass  = Chord.parse(s)
       result <<
         Chord.new(
           find_transposed(root, step, sig),
