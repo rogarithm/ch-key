@@ -19,5 +19,6 @@ end
 # 선택적으로 추가 가능한 것들:
 # gem 'dotenv'      # 환경변수 관리
 # gem 'rerun'       # 파일 변경 시 자동으로 재시작
-# gem 'thin'        # 경량화된 웹서버 (기본은 WEBrick)
 
+gem "rackup", "~> 2.2"
+gem "puma", "~> 6.6"
