@@ -2,6 +2,10 @@ require "sinatra"
 require 'json'
 require_relative "./lib/runner"
 
+get '/' do
+  File.read(File.join('public', 'index.html'))
+end
+
 post '/transpositions' do
   r = Runner.new
 

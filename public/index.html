@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chord Transposer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+<div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+  <!-- Left panel: input -->
+  <div class="bg-white rounded-2xl shadow p-6">
+    <h2 class="text-xl font-semibold mb-4">Chord Transposer</h2>
+    <form id="transposeForm" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium">Original Key</label>
+        <input type="text" id="fromKey" class="w-full mt-1 p-2 border rounded" placeholder="ex. C" required />
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Target Key</label>
+        <input type="text" id="toKey" class="w-full mt-1 p-2 border rounded" placeholder="ex. E" required />
+      </div>
+      <div>
+        <label class="block text-sm font-medium">Chord Sheet</label>
+        <textarea id="chordText" rows="20" class="w-full mt-1 p-2 border rounded resize-none" required></textarea>
+      </div>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Transpose</button>
+    </form>
+  </div>
+
+  <!-- Right panel: output -->
+  <div class="bg-white rounded-2xl shadow p-6">
+    <h2 class="text-xl font-semibold mb-4">Transposed Result</h2>
+    <pre id="resultBox" class="whitespace-pre-wrap text-gray-800 bg-gray-50 p-4 rounded h-5/6 overflow-auto"></pre>
+  </div>
+</div>
+
+<script>
+  document.getElementById("transposeForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const from = document.getElementById("fromKey").value;
+    const to = document.getElementById("toKey").value;
+    const text = document.getElementById("chordText").value;
+
+    try {
+      const response = await fetch("/transpositions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ from, to, text }),
+      });
+
+      if (!response.ok) throw new Error("Request failed");
+
+      const data = await response.json();
+      document.getElementById("resultBox").textContent = data.transposed;
+    } catch (err) {
+      document.getElementById("resultBox").textContent = "Error: " + err.message;
+    }
+  });
+</script>
+</body>
+</html>
