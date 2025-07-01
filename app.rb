@@ -2,7 +2,7 @@ require "sinatra"
 require 'json'
 require_relative "./lib/runner"
 
-post '/transpose' do
+post '/transpositions' do
   r = Runner.new
 
   payload = JSON.parse(request.body.read)

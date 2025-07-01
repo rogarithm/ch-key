@@ -13,7 +13,7 @@ class AppTest < Minitest::Test
   end
 
   def test_getting_request
-    post('/transpose',
+    post('/transpositions',
          { "from": "C", "to": "E", "text": "C G Am\n가사입니다" }.to_json,
          { 'CONTENT_TYPE' => 'application/json' })
     assert_equal "{\"transposed\":\"E B C#m\\n가사입니다\"}", last_response.body
